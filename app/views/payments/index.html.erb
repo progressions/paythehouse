@@ -1,0 +1,23 @@
+<% title "Payments" %>
+
+<p>Current balance is <%= number_to_currency(Payment.sum_in_dollars) %></p>
+
+<table>
+  <tr>
+    <th>Amount</th>
+    <th>User</th>
+    <th>Note</th>
+  </tr>
+  <% for payment in @payments %>
+    <tr>
+      <td><%=h(payment.amount / 100) %></td>
+      <td><%=h payment.user.login %></td>
+      <td><%=h payment.note %></td>
+      <td><%= link_to "Show", payment %></td>
+      <td><%= link_to "Edit", edit_payment_path(payment) %></td>
+      <td><%= link_to "Destroy", payment, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Payment", new_payment_path %></p>

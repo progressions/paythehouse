@@ -1,0 +1,12 @@
+<% form_for @payment do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount %>
+  </p>
+  <p>
+    <%= f.label :note %><br />
+    <%= f.text_field :note %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
