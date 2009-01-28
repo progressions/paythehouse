@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20090127032015) do
   create_table "payments", :force => true do |t|
     t.integer  "amount_in_cents"
     t.integer  "user_id"
+    t.integer  "payee_id"
     t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
