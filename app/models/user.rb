@@ -24,15 +24,19 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
   
   has_many :payments
-  has_many :debts, :class_name => "Payment", :foreign_key => "payee_id"
+  has_many :bills
+  has_many :assignments
+  has_many :debts, :class_name => "Assignment", :foreign_key => "payee_id"
 
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :name, :password, :password_confirmation, :identity_url
   
-  def owes
-    debts.sum_in_dollars + payments.sum_in_dollars
+  def balance
+    #payments.sum_in_dollars - debts.sum_in_dollars
+    cents = payments.sum(:amount_in_cents) - debts.sum(:amount_in_cents)
+    cents / 100.0
   end
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.

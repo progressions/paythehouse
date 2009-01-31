@@ -1,0 +1,14 @@
+<% form_for @assignment do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount %>
+  </p>
+  
+  <p>
+    <%= f.label :payee, "Assign to" %><br />
+    <%= collection_select(:assignment, :payee_id, User.find(:all), :id, :login, {:prompt => "Assign to"}) %>
+  </p>
+  
+  <p><%= f.submit "Submit" %></p>
+<% end %>

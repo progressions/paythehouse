@@ -1,0 +1,25 @@
+<% title "Assignments" %>
+
+<table>
+  <tr>
+    <th>Amount In Cents</th>
+    <th>User</th>
+    <th>Payee</th>
+    <th>Bill</th>
+    <th>Note</th>
+  </tr>
+  <% for assignment in @assignments %>
+    <tr>
+      <td><%=h assignment.amount_in_cents %></td>
+      <td><%=h assignment.user_id %></td>
+      <td><%=h assignment.payee_id %></td>
+      <td><%=h assignment.bill_id %></td>
+      <td><%=h assignment.note %></td>
+      <td><%= link_to "Show", assignment %></td>
+      <td><%= link_to "Edit", edit_assignment_path(assignment) %></td>
+      <td><%= link_to "Destroy", assignment, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Assignment", new_assignment_path %></p>

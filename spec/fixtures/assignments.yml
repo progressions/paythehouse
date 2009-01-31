@@ -1,0 +1,13 @@
+one:
+  amount_in_cents: 1
+  user_id: 1
+  payee_id: 1
+  bill_id: 1
+  note: MyString
+
+two:
+  amount_in_cents: 1
+  user_id: 1
+  payee_id: 1
+  bill_id: 1
+  note: MyString

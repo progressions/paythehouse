@@ -9,7 +9,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090127032015) do
+ActiveRecord::Schema.define(:version => 20090131184721) do
+
+  create_table "assignments", :force => true do |t|
+    t.integer  "amount_in_cents"
+    t.integer  "user_id"
+    t.integer  "payee_id"
+    t.integer  "bill_id"
+    t.string   "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bills", :force => true do |t|
+    t.integer  "amount_in_cents"
+    t.integer  "user_id"
+    t.integer  "payee_id"
+    t.string   "note"
+    t.datetime "date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "open_id_authentication_associations", :force => true do |t|
     t.integer "issued"
@@ -41,6 +61,7 @@ ActiveRecord::Schema.define(:version => 20090127032015) do
     t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "type"
   end
 
   create_table "roles", :force => true do |t|

@@ -16,6 +16,7 @@
 		<div id="container">
 			<div id="header">
 				<ul>
+				  <li><%= link_to 'Home', root_url %></li>
 					<% if logged_in? %>
 					<li><%= link_to 'Logout', logout_path %></li>
 					<% else %>

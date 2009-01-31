@@ -1,0 +1,34 @@
+<% form_for @bill do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :amount %><br />
+    <%= f.text_field :amount, :value => "" %>
+  </p>
+  <p>
+    <%= f.label :note %><br />
+    <%= f.text_field :note %>
+  </p>
+  <p>Divide between roommates:</p>
+  <ul>
+  <% @bill.assignments.each do |assignment| %>
+    <% fields_for "bill[assignment_attributes][]", assignment do |u| %>
+      <li>
+        <label><%= assignment.payee.login %>:</label>
+        <%= u.text_field :amount %>
+        <%= u.hidden_field :payee_id %>
+      </li>
+    <% end %>
+  <% end %>
+  </ul>
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+
+<%= observe_field(:bill_amount,
+  :function => update_page do |page|
+    @users.each do |user|
+      page[:bill_amount].value = "50"
+      
+    end
+  end,
+  :frequency => 0.5)
+%>

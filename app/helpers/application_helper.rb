@@ -17,4 +17,12 @@ module ApplicationHelper
     messages
   end
   
+  def amount(entry)
+    if [Bill, Assignment].include?(entry.class)
+      "-#{entry.amount}"
+    else
+      entry.amount
+    end
+  end
+  
 end

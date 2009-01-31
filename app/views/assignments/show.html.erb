@@ -1,0 +1,28 @@
+<% title "Assignment" %>
+
+<p>
+  <strong>Amount In Cents:</strong>
+  <%=h @assignment.amount_in_cents %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%=h @assignment.user_id %>
+</p>
+<p>
+  <strong>Payee:</strong>
+  <%=h @assignment.payee_id %>
+</p>
+<p>
+  <strong>Bill:</strong>
+  <%=h @assignment.bill_id %>
+</p>
+<p>
+  <strong>Note:</strong>
+  <%=h @assignment.note %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_assignment_path(@assignment) %> |
+  <%= link_to "Destroy", @assignment, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", assignments_path %>
+</p>

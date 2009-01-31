@@ -1,0 +1,13 @@
+one:
+  amount_in_cents: 1
+  user_id: 1
+  payee_id: 1
+  note: MyString
+  date: 2009-01-28 22:18:57
+
+two:
+  amount_in_cents: 1
+  user_id: 1
+  payee_id: 1
+  note: MyString
+  date: 2009-01-28 22:18:57

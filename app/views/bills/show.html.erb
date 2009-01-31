@@ -1,0 +1,28 @@
+<% title "Bill" %>
+
+<p>
+  <strong>Amount In Cents:</strong>
+  <%=h @bill.amount_in_cents %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%=h @bill.user_id %>
+</p>
+<p>
+  <strong>Payee:</strong>
+  <%=h @bill.payee_id %>
+</p>
+<p>
+  <strong>Note:</strong>
+  <%=h @bill.note %>
+</p>
+<p>
+  <strong>Date:</strong>
+  <%=h @bill.date %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_bill_path(@bill) %> |
+  <%= link_to "Destroy", @bill, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", bills_path %>
+</p>

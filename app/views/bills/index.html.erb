@@ -1,0 +1,32 @@
+<% title "Bills" %>
+
+<p>You are <%= current_user.login %>. Your current balance is <%= number_to_currency(current_user.balance) %>. <%= link_to "Make a payment", new_payment_path %>.</p>
+
+<table>
+  <tr>
+    <th>Type</th>
+    <th>Amount</th>
+    <th>Created by</th>
+    <th>Assigned to</th>
+    <th>Note</th>
+    <th></th>
+  </tr>
+  <% for entry in @entries %>    
+    <tr class="<%= entry.class.to_s.downcase %>">
+      <td><%= entry.class %></td>
+      <td><%= amount(entry) %></td>
+      <td><%=h entry.user.login %></td>
+      <td><%= h entry.payee.login if entry.kind_of?(Assignment) %></td>
+      <td width="200"><%=h entry.note %></td>
+      <td>
+        <% if entry.kind_of?(Bill) %>
+          (<%= link_to "add a payee", new_assignment_url(:bill => entry.id) %>)
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= will_paginate %>
+
+<p><%= link_to "Add a bill", new_bill_path %></p>

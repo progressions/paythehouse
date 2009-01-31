@@ -1,6 +1,6 @@
 <% title "Payments" %>
 
-<p>Current balance is <%= number_to_currency(Payment.sum_in_dollars) %></p>
+<p>Current total balance is $<%= number_to_currency(Payment.sum_in_dollars) %></p>
 
 <table>
   <tr>
@@ -20,4 +20,4 @@
   <% end %>
 </table>
 
-<p><%= link_to "New Payment", new_payment_path %></p>
+<p><%= link_to "New Payment", new_payment_path %> <%= link_to "New Bill", new_bill_path %></p>
