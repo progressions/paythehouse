@@ -5,8 +5,10 @@ class Assignment < ActiveRecord::Base
   belongs_to :bill
   belongs_to :payee, :class_name => "User", :foreign_key => "payee_id"
   
+  delegate :note, :to => :bill
+  
   def amount= dollars
-    dollars.gsub!(/^\$/, "")
+    dollars = dollars.to_s.gsub(/^\$/, "")
     update_attribute(:amount_in_cents, Money.new(dollars.to_f).cents)
   end
   

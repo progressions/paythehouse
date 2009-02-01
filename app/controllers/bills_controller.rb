@@ -17,17 +17,16 @@ class BillsController < ApplicationController
     @users = User.find(:all)
     @bill = Bill.new
     @users.each do |user|
-      @bill.assignments.build(:payee => user)
+      @bill.assignments.build(:payee_id => user.id, :user_id => current_user.id)
     end
   end
   
   def create
-    raise params.inspect
     @bill = Bill.new(params[:bill])
     current_user.bills << @bill
     if @bill.save
       flash[:notice] = "Successfully created bill."
-      redirect_to new_assignment_url(:bill => @bill)
+      redirect_to root_url
     else
       render :action => 'new'
     end

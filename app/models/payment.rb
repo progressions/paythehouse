@@ -3,7 +3,7 @@ class Payment < ActiveRecord::Base
   validates_presence_of :user
   
   def amount= dollars
-    dollars.gsub!(/^\$/, "")
+    dollars = dollars.to_s.gsub(/^\$/, "")
     update_attribute(:amount_in_cents, Money.new(dollars.to_f).cents)
   end
   

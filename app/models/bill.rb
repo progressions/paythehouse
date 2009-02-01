@@ -2,11 +2,15 @@ class Bill < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :user
   
+  validates_associated :assignments
+  validate :validate_assignments
+  
   has_many :assignments
   belongs_to :payee, :class_name => "User", :foreign_key => "payee_id"
   
   def amount= dollars
-    update_attribute(:amount_in_cents, Money.new(dollars.to_f).cents)
+    dollars.gsub!(/^\$/, "")
+    self[:amount_in_cents] = Money.new(dollars).cents
   end
   
   def self.sum_in_dollars
@@ -17,5 +21,10 @@ class Bill < ActiveRecord::Base
     assignment_attributes.each do |attributes|
       assignments.build(attributes)
     end
+  end
+  
+  # value of assignments amounts must total the amount of the bill 
+  def validate_assignments
+    assignments.sum(:amount_in_cents) == self[:amount_in_cents]
   end
 end

@@ -14,8 +14,9 @@
     <% fields_for "bill[assignment_attributes][]", assignment do |u| %>
       <li>
         <label><%= assignment.payee.login %>:</label>
-        <%= u.text_field :amount %>
+        <%= u.text_field :amount, :id => "assignment_for_#{assignment.payee.id}" %>
         <%= u.hidden_field :payee_id %>
+        <%= u.hidden_field :user_id %>
       </li>
     <% end %>
   <% end %>
@@ -23,12 +24,50 @@
   <p><%= f.submit "Submit" %></p>
 <% end %>
 
-<%= observe_field(:bill_amount,
-  :function => update_page do |page|
-    @users.each do |user|
-      page[:bill_amount].value = "50"
+<% content_for :bottom_script do -%>
+  <% javascript_tag do %>
+  
+    function roundDecimal(amount) {
+      return Math.round(amount*100)/100;
+    }
+  
+    function billAmount() {
+      return $("input#bill_amount");
+    }
+    
+    <% for assignment in @bill.assignments do %>
+    
+    function assignmentAmount<%= assignment.payee.id %>() {
+      return $("input#assignment_for_<%= assignment.payee.id %>");
+    }
+    
+    <% end %>
+    
+    $(document).ready(function() {
+      billAmount().change(function() {
+        var total = 0;
+        var value = roundDecimal(billAmount().attr("value") / <%= @users.size %>);
+        <% for assignment in @bill.assignments do %>
+          assignmentAmount<%= assignment.payee.id%>().attr("value", value);
+          total = total + value;
+        <% end %>
+        if(total != billAmount().attr("value")) {
+          assignmentAmount<%= @bill.assignments.last.payee.id %>().attr("value", roundDecimal(value - 0.01));
+        }
+      });
       
-    end
-  end,
-  :frequency => 0.5)
-%>
+      <% for assignment in @bill.assignments do %>
+        <% assignmentAmount = "assignmentAmount#{assignment.payee.id}()" %>
+        <%= assignmentAmount %>.change(function() {
+          subtotal = billAmount().attr("value") - <%= assignmentAmount %>.attr("value");
+          average = subtotal / <%= @users.size - 1 %>;
+          <% for other_assignment in @bill.assignments do %>
+            <% unless other_assignment.payee == assignment.payee %>
+              assignmentAmount<%= other_assignment.payee.id %>().attr("value", average);
+            <% end %>
+          <% end %>
+        });
+      <% end %>
+    });
+  <% end %>
+<% end -%>
