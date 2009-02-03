@@ -79,3 +79,58 @@ a {
   font-size: 12px;
   list-style: disc;
 }
+
+div.nav {
+	background-color: black;
+	clear: all;
+	width: 850px;
+	margin-bottom: 50px;
+}
+ul.nav {
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+ul.nav li {
+	background-color: #aaa;
+	display: block;
+	padding: 5px;
+	float: left;
+}
+ul.nav li a {
+	float: none;
+	padding: 5px;
+	text-decoration: none;
+}
+ul.nav li:hover,
+ul.nav li:hover a {
+	background-color: blue;
+	color: white;
+}
+
+#content {
+}
+
+span.balance {
+	display: block;
+	font-size: 50px;
+	text-align: center;
+	width: 300px;
+}
+
+p.payment_link a {
+	background-color: #bbb;
+	border: 1px solid #ccc;
+	display: block;
+	padding: 10px;
+	text-align: center;
+	text-decoration: none;
+	width: 300px;
+}
+p.payment_link a:hover {
+	background-color: red;
+	color: white;
+}
+
+
