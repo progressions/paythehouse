@@ -1,0 +1,27 @@
+<h1>Edit your account</h1>
+
+
+<% form_for @user do |f| %>
+
+<%= f.error_messages %>
+<ul>
+	<li>
+		<%= f.label :login, 'Username' %>
+		<%= f.text_field :login %>
+	</li>
+	<li>
+		<%= f.label :email %>
+		<%= f.text_field :email %>
+	</li>
+	<li>
+		<%= f.label :password %>
+		<%= f.password_field :password %>
+	</li>
+	<li>
+		<%= f.label :password_confirmation, 'Confirm Password' %>
+		<%= f.password_field :password_confirmation %>
+	</li>
+</ul>
+<p><%= f.submit %></p>
+
+<% end %>

@@ -38,6 +38,21 @@ class UsersController < ApplicationController
     end
   end
   
+  def edit
+    @user = current_user
+  end
+  
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
+      flash[:notice] = "Successfully updated your account."
+      redirect_to root_url
+    else
+      flash[:notice] = "WHATS UP"
+      render :action => 'edit'
+    end
+  end
+  
   protected
   
   def create_new_user(attributes)

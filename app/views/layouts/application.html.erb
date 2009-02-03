@@ -20,15 +20,18 @@
 			<div class="nav">
 				<ul class="nav">
 				  <li><%= link_to_unless_current 'Home', root_url %></li>
+					<li>
+					  <%= link_to_unless_current "Add a bill", new_bill_path %>
+					</li>
+					<li>
+					  <%= link_to_unless_current "Edit your profile", edit_user_path(current_user) %>
+					</li>
 					<% if logged_in? %>
 					<li><%= link_to 'Logout', logout_path %></li>
 					<% else %>
 					<li><%= link_to 'Login', login_path %></li>
 <!--					<li><%= link_to 'Signup', signup_path %></li> -->
 					<% end %>
-					<li>
-					  <%= link_to_unless_current "Add a bill", new_bill_path %>
-					</li>
 				</ul>
 			</div>
 			<div class="section" id="content">

@@ -1,6 +1,7 @@
 class BillsController < ApplicationController
   before_filter :login_required
   
+  
   def index
     @bills = Bill.paginate :page => params[:page], :order => 'created_at DESC'
     @payments = Payment.paginate :page => params[:page], :order => 'created_at DESC'

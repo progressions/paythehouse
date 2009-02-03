@@ -19,15 +19,6 @@ class PaymentsController < ApplicationController
     end
   end
   
-  def wnew
-    @bill = Bill.find(params[:bill])
-    @payment = Payment.new
-    if @bill
-      @payment.amount_in_cents = @bill.amount_in_cents / 2.0
-      @payment.note = @bill.note
-    end
-  end
-  
   def create
     @payment = Payment.new(params[:payment])
     current_user.payments << @payment
