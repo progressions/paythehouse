@@ -23,9 +23,11 @@
 					<li>
 					  <%= link_to_unless_current "Add a bill", new_bill_path %>
 					</li>
-					<li>
-					  <%= link_to_unless_current "Edit your profile", edit_user_path(current_user) %>
-					</li>
+					<% if current_user %>
+  					<li>
+  					  <%= link_to_unless_current "Edit your profile", edit_user_path(current_user) %>
+  					</li>
+					<% end %>
 					<% if logged_in? %>
 					<li><%= link_to 'Logout', logout_path %></li>
 					<% else %>
