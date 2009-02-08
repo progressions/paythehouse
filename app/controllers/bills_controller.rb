@@ -37,6 +37,7 @@ class BillsController < ApplicationController
   end
   
   def edit
+    @users = User.find(:all)
     @bill = Bill.find(params[:id])
   end
   

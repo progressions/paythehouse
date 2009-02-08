@@ -52,7 +52,7 @@
       $("input#bill_date").datepicker();
       billAmount().change(function() {
         var total = 0;
-        var value = roundDecimal(billAmount().attr("value") / <%= @users.size %>);
+        var value = roundDecimal(billAmount().attr("value") / <%= User.count %>);
         <% for assignment in @bill.assignments do %>
           assignmentAmount<%= assignment.payee.id%>().attr("value", value);
           total = total + value;
