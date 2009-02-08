@@ -1,17 +1,17 @@
 development: &non_production_settings
   site_url: http://localhost:3000
-  site_name: WRS HQ Bills
-  admin_email: admin@wrs.oib.com
+  site_name: Pay The House
+  admin_email: thehouse@paythehouse.com
   
 test:
   <<: *non_production_settings
 
 staging:
   site_url: http://staging.example.com
-  site_name: WRS HQ Bills
-  admin_email: admin@wrs.oib.com
+  site_name: Pay The House
+  admin_email: thehouse@paythehouse.com
   
 production:
-  site_url: http://www.example.com
-  site_name: WRS HQ Bills
-  admin_email: admin@wrs.oib.com
+  site_url: http://www.paythehouse.com
+  site_name: Pay The House
+  admin_email: thehouse@paythehouse.com

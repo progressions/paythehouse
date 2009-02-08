@@ -26,6 +26,9 @@ class BillsController < ApplicationController
     @bill = Bill.new(params[:bill])
     current_user.bills << @bill
     if @bill.save
+      @bill.assignments.each do |assignment|
+        #UserMailer.deliver_assignment_notification(assignment)
+      end
       flash[:notice] = "Successfully created bill."
       redirect_to root_url
     else

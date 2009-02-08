@@ -38,16 +38,16 @@ config.action_controller.cache_store = [:file_store, "#{RAILS_ROOT}/tmp/cache"]
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
-APP_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/config.yml")['mailer']
+MAIL_CONFIG = YAML.load_file("#{RAILS_ROOT}/config/config.yml")['mailer']
 
 config.action_mailer.delivery_method = :smtp
 
 config.action_mailer.smtp_settings = {
-  :address  => APP_CONFIG['address'],
-  :port  => APP_CONFIG['port'], 
-  :domain  => APP_CONFIG['domain'],
-  :user_name  => APP_CONFIG['user_name'],
-  :password  => APP_CONFIG['password'],
+  :address  => MAIL_CONFIG['address'],
+  :port  => MAIL_CONFIG['port'], 
+  :domain  => MAIL_CONFIG['domain'],
+  :user_name  => MAIL_CONFIG['user_name'],
+  :password  => MAIL_CONFIG['password'],
   :authentication  => :login
 }
 
