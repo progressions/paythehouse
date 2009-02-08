@@ -1,3 +1,4 @@
+
 <% form_for @bill do |f| %>
   <%= f.error_messages %>
   <p>
@@ -8,7 +9,11 @@
     <%= f.label :note %><br />
     <%= f.text_field :note %>
   </p>
-  <p>Divide between roommates:</p>
+  <p>
+    <%= f.label :date, "Payment is due on" %><br />
+    <%= f.text_field :date %>
+  </p>
+  <p>Divide between housemates:</p>
   <ul>
   <% @bill.assignments.each do |assignment| %>
     <% fields_for "bill[assignment_attributes][]", assignment do |u| %>
@@ -44,6 +49,7 @@
     <% end %>
     
     $(document).ready(function() {
+      $("input#bill_date").datepicker();
       billAmount().change(function() {
         var total = 0;
         var value = roundDecimal(billAmount().attr("value") / <%= @users.size %>);

@@ -6,20 +6,39 @@
 
 <table>
   <tr>
+    <th>Created</th>
     <th>Type</th>
     <th>Amount</th>
     <th>Created by</th>
     <th>Assigned to</th>
+    <th>Due by</th>
     <th>Note</th>
   </tr>
   <% for entry in @entries %>    
     <tr class="<%= entry.class.to_s.downcase %>">
+      <td><%= entry.created_at.strftime("%m/%d/%Y") %></td>
       <td><%= entry.class %></td>
       <td><%= amount(entry) %></td>
       <td><%=h entry.user.login %></td>
       <td><%= h entry.payee.login if entry.kind_of?(Assignment) %></td>
+      <td><% if entry.kind_of?(Bill) %>
+        <%= entry.date.strftime("%m/%d/%Y") %>
+      <% end %></td>
       <td width="200"><%=h entry.note %></td>
     </tr>
+    <% if entry.kind_of?(Bill) %>
+      <% for assignment in entry.assignments %>
+      <tr class="<%= assignment.class.to_s.downcase %>">
+      <td><%= assignment.created_at.strftime("%m/%d/%Y") %></td>
+      <td><%= assignment.class %></td>
+      <td><%= amount(assignment) %></td>
+      <td><%=h assignment.user.login %></td>
+      <td><%= h assignment.payee.login if assignment.kind_of?(Assignment) %></td>
+      <td>
+        <%= assignment.date.strftime("%m/%d/%Y") %>
+      </td>
+      <% end %>
+    <% end %>
   <% end %>
 </table>
 

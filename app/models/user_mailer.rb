@@ -2,6 +2,7 @@ class UserMailer < ActionMailer::Base
   def assignment_notification(assignment)
     setup_email(assignment.payee)
     @subject << 'You have been assigned a bill'
+    @body[:assignment] = assignment
     @body[:url] = APP_CONFIG[:site_url]
   end
   

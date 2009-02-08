@@ -6,6 +6,7 @@ class Assignment < ActiveRecord::Base
   belongs_to :payee, :class_name => "User", :foreign_key => "payee_id"
   
   delegate :note, :to => :bill
+  delegate :date, :to => :bill
   
   def amount= dollars
     dollars = dollars.to_s.gsub(/^\$/, "")

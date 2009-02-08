@@ -5,8 +5,8 @@ class BillsController < ApplicationController
   def index
     @bills = Bill.paginate :page => params[:page], :order => 'created_at DESC'
     @payments = Payment.paginate :page => params[:page], :order => 'created_at DESC'
-    @assignments = Assignment.paginate :page => params[:page], :order => 'created_at DESC'
-    @entries = @bills + @payments + @assignments
+    #@assignments = Assignment.paginate :page => params[:page], :order => 'created_at DESC'
+    @entries = @bills + @payments # + @assignments
     @entries.sort! {|a,b| a.created_at <=> b.created_at}
   end
   
@@ -27,7 +27,7 @@ class BillsController < ApplicationController
     current_user.bills << @bill
     if @bill.save
       @bill.assignments.each do |assignment|
-        #UserMailer.deliver_assignment_notification(assignment)
+        UserMailer.deliver_assignment_notification(assignment)
       end
       flash[:notice] = "Successfully created bill."
       redirect_to root_url
