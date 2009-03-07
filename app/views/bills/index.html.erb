@@ -34,7 +34,7 @@
     # e.created_at.to_date
   end.each do |date, entries| %>
   <p class="date"><%= date %></p>
-  <% for entry in @entries %>
+  <% for entry in entries %>
   
     <!-- PAYMENTS -->
     <% if entry.kind_of?(Payment) %>
