@@ -12,6 +12,7 @@ class PaymentsController < ApplicationController
   def new
     amount = params[:amount]
     @payment = current_user.payments.build
+    @payment.payee_id = params[:payee_id]
     @payment.amount_in_cents = amount
   end
   

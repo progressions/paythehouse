@@ -43,13 +43,21 @@ class User < ActiveRecord::Base
     debts.scoped(:conditions => {:user_id => user.id})
   end
   
+  def paid_to(payee)
+    payments.scoped(:conditions => {:payee_id => payee.id})
+  end
+  
   def gross_amount_owed_to(user)
     owes(user).sum(:amount_in_cents).to_cents
   end
   
+  def gross_amount_paid_to(payee)
+    paid_to(payee).sum(:amount_in_cents).to_cents
+  end
+  
   def net_amount_owed_to(user)
-    i_owe_you = gross_amount_owed_to(user)
-    you_owe_me = user.gross_amount_owed_to(self)
+    i_owe_you = gross_amount_owed_to(user) - gross_amount_paid_to(user)
+    you_owe_me = user.gross_amount_owed_to(self) - user.gross_amount_paid_to(self)
     
     net = i_owe_you - you_owe_me
     if net > 0.to_cents
