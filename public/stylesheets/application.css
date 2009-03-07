@@ -183,7 +183,11 @@ div.timeline span.user {
 }
 	
 div.timeline p.date {
+	border-bottom: 0.5px solid #bbb;
+	margin-top: 15px;
+	margin-bottom: 10px;
 	color: #999;
+	width: 400px;
 }
 	
 	
