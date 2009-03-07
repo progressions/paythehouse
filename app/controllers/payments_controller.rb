@@ -10,13 +10,9 @@ class PaymentsController < ApplicationController
   end
   
   def new
-    @bill = Bill.find(params[:bill]) if params[:bill]
+    amount = params[:amount]
     @payment = current_user.payments.build
-    @payment.amount = current_user.balance.abs
-    if @bill
-      @payment.amount_in_cents = @bill.amount_in_cents / 2.0
-      @payment.note = @bill.note
-    end
+    @payment.amount_in_cents = amount
   end
   
   def create

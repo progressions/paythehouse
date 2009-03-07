@@ -8,7 +8,7 @@
   <ul>
   <% for user in @users %>
     <% unless user == current_user %>
-      <li>You owe <%= user.login %> <%= current_user.net_amount_owed_to(user) %></li>
+      <li>You owe <%= user.login %> <%= current_user.net_amount_owed_to(user) %> <%= link_to "Make a payment", new_payment_path(:amount => current_user.net_amount_owed_to(user).cents) %></li>
     <% end %>
   <% end %>
   </ul>
