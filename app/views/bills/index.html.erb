@@ -23,6 +23,31 @@
   
 </div>
 
+<div class="timeline">
+<% @entries.group_by do |e| 
+    e.created_at.strftime("%b %d, %Y")
+  end.each do |date, entries| %>
+  <p class="date"><%= date %></p>
+  <% for entry in @entries %>
+  
+    <!-- PAYMENTS -->
+    <% if entry.kind_of?(Payment) %>
+      <p><%= user_name(entry.user) %> paid <%= user_name(entry.payee) %> <%= amount(entry) %></p>
+      
+    <!-- BILLS -->
+    <% elsif entry.kind_of?(Bill) %>
+      <p><%= user_name(entry.user) %> entered the bill "<%= entry.note %>" for <%= entry.amount %>.</p>
+      
+    <!-- ASSIGNMENTS -->
+    <% elsif entry.kind_of?(Assignment) %>
+      <p><%= user_name(entry.user) %></p>
+    <% end %>
+    
+  <% end %>
+<% end %>
+</div>
+
+<% if false %>
 <table>
   <tr>
     <th>Created</th>
@@ -60,7 +85,7 @@
     <% end %>
   <% end %>
 </table>
-
+<% end %>
 <%= will_paginate %>
 
 <p><%= link_to "Add a bill", new_bill_path %></p>
