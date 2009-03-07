@@ -1,19 +1,23 @@
 <% title "Bills" %>
-<!-- 
-<div class="balance">Your current balance is <span class="balance"><%= number_to_currency(current_user.balance) %></span></p> <p class="payment_link"><%= link_to "Make a payment", new_payment_path %></p>
-</div>
---> 
-<div class="individual_balances">
-<p>You are <%= current_user.login %>. </p>
-  <ul>
+
+<p>Welcome, <%= current_user.login %>!</p>
+
+<div class="balances">
+<h3>Balances</h3>
+  <ul class="yours">
   <% for user in @users %>
     <% unless user == current_user %>
-      <li>You owe <%= user.login %> <%= current_user.net_amount_owed_to(user) %> <%= link_to "Make a payment", new_payment_path(:amount => current_user.net_amount_owed_to(user).cents, :payee_id => user.id) %></li>
+      <% amount = current_user.net_amount_owed_to(user) -%>
+      <li>You owe <span class="user"><%= user.login %></span> <span class="amount"><%= amount %></span> 
+      
+      <% if amount > 0.to_cents %>
+        <%= link_to "Make a payment", new_payment_path(:amount => amount.cents, :payee_id => user.id) %></li>
+      <% end %>
     <% end %>
   <% end %>
   </ul>
 
-  <ul>
+  <ul class="theirs">
   <% for user in @users %>
     <% unless user == current_user %>
       <li><%= user.login %> owes you <%= user.net_amount_owed_to(current_user) %></li>
@@ -24,23 +28,25 @@
 </div>
 
 <div class="timeline">
+  <h3>Timeline</h3>
 <% @entries.group_by do |e| 
     e.created_at.strftime("%b %d, %Y")
+    # e.created_at.to_date
   end.each do |date, entries| %>
   <p class="date"><%= date %></p>
   <% for entry in @entries %>
   
     <!-- PAYMENTS -->
     <% if entry.kind_of?(Payment) %>
-      <p><%= user_name(entry.user) %> paid <%= user_name(entry.payee) %> <%= amount(entry) %></p>
+      <p class="payment"><%= user_name(entry.user) %> paid <%= user_name(entry.payee) %> <%= amount(entry) %>. <%= time_created(entry) %></p>
       
     <!-- BILLS -->
     <% elsif entry.kind_of?(Bill) %>
-      <p><%= user_name(entry.user) %> entered the bill "<%= entry.note %>" for <%= entry.amount %>.</p>
+      <p class="bill"><%= user_name(entry.user) %> entered the bill "<%= entry.note %>" for <%= amount(entry) %>. <%= time_created(entry) %></p>
       
     <!-- ASSIGNMENTS -->
     <% elsif entry.kind_of?(Assignment) %>
-      <p><%= user_name(entry.user) %></p>
+      <p class="assignment"><%= user_name(entry.user) %> assigned <%= user_name(entry.payee) %> <%= amount(entry) %>. <%= time_created(entry) %></p>
     <% end %>
     
   <% end %>

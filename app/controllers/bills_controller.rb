@@ -5,8 +5,8 @@ class BillsController < ApplicationController
     @users = User.find(:all)
     @bills = Bill.paginate :page => params[:page], :order => 'created_at DESC'
     @payments = Payment.paginate :page => params[:page], :order => 'created_at DESC'
-    #@assignments = Assignment.paginate :page => params[:page], :order => 'created_at DESC'
-    @entries = @bills + @payments # + @assignments
+    @assignments = Assignment.paginate :page => params[:page], :order => 'created_at DESC'
+    @entries = @bills + @payments + @assignments
     @entries.sort! {|a,b| b.created_at <=> a.created_at}
   end
   

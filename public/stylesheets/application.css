@@ -1,5 +1,6 @@
 body {
   background-color: #4B7399;
+	color: #444;
   font-family: Verdana, Helvetica, Arial;
   font-size: 14px;
 }
@@ -93,7 +94,7 @@ ul.nav {
 	padding: 0;
 }
 ul.nav li {
-	background-color: #aaa;
+	background-color: #ccc;
 	display: block;
 	padding: 5px;
 	float: left;
@@ -142,3 +143,47 @@ tr.assignment {
 tr.payment {
 	color: green;
 }
+
+span.time {
+	color: #999;
+	font-size: 0.75em;
+}
+
+h3 {
+	background-color: blue;
+	color: white;
+	padding: 3px;
+}
+
+div.balances ul {
+	font-size: 1.2em;
+	list-style: none;
+	padding-left: 0;
+}
+div.balances ul li {
+}
+
+div.timeline p {
+	margin: 3px 0 0 0;
+	padding: 0;
+}
+
+div.timeline p.bill span.amount {
+	color: #d20404;
+}
+div.timeline p.payment span.amount {
+	color: #15851d;
+}
+div.timeline p.assignment span.amount {
+	color: #c27906;
+}
+
+div.timeline span.user {
+/*	font-weight: bold;*/
+}
+	
+div.timeline p.date {
+	color: #999;
+}
+	
+	
