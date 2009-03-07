@@ -1,9 +1,11 @@
 module BillsHelper
   def user_name(user)
-    if user == current_user
+    if user && user == current_user 
       name = "you"
-    else
+    elsif user
       name = user.login
+    else
+      name = "somebody"
     end
     "<span class=\"user\">#{name}</span>"
   end
