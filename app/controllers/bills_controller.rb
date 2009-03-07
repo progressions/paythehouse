@@ -1,8 +1,8 @@
 class BillsController < ApplicationController
   before_filter :login_required
   
-  
   def index
+    @users = User.find(:all)
     @bills = Bill.paginate :page => params[:page], :order => 'created_at DESC'
     @payments = Payment.paginate :page => params[:page], :order => 'created_at DESC'
     #@assignments = Assignment.paginate :page => params[:page], :order => 'created_at DESC'
@@ -24,6 +24,9 @@ class BillsController < ApplicationController
   
   def create
     @bill = Bill.new(params[:bill])
+    unless @bill.date
+      @bill.date = 2.weeks.from_now
+    end
     current_user.bills << @bill
     if @bill.save
       @bill.assignments.each do |assignment|

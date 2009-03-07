@@ -14,7 +14,8 @@ class Assignment < ActiveRecord::Base
   end
   
   def self.sum_in_dollars
-    Money.new(self.sum(:amount_in_cents)/100.0)
+    # Money.new(self.sum(:amount_in_cents)/100.0)
+    self.sum(:amount_in_cents).to_cents
   end
   
 end

@@ -1,7 +1,15 @@
 <% title "Bills" %>
-
-<div class="balance">
-<p>You are <%= current_user.login %>. Your current balance is <span class="balance"><%= number_to_currency(current_user.balance) %></span></p> <p class="payment_link"><%= link_to "Make a payment", new_payment_path %></p>
+<!-- 
+<div class="balance">Your current balance is <span class="balance"><%= number_to_currency(current_user.balance) %></span></p> <p class="payment_link"><%= link_to "Make a payment", new_payment_path %></p>
+</div>
+--> 
+<div class="individual_balances">
+<p>You are <%= current_user.login %>. </p>
+  <ul>
+  <% for user in @users %>
+    <li>You owe <%= user.login %> <%= current_user.net_amount_owed_to(user) %></li>
+  <% end %>
+  </ul>
 </div>
 
 <table>

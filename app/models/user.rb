@@ -39,6 +39,26 @@ class User < ActiveRecord::Base
     cents / 100.0
   end
 
+  def owes(user)
+    debts.scoped(:conditions => {:user_id => user.id})
+  end
+  
+  def gross_amount_owed_to(user)
+    owes(user).sum(:amount_in_cents).to_cents
+  end
+  
+  def net_amount_owed_to(user)
+    i_owe_you = gross_amount_owed_to(user)
+    you_owe_me = user.gross_amount_owed_to(self)
+    
+    net = i_owe_you - you_owe_me
+    if net > 0.to_cents
+      return net
+    else
+      return 0.to_cents
+    end
+  end
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find_in_state :first, :active, :conditions => { :login => login } # need to get the salt

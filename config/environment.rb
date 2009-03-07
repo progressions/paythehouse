@@ -78,3 +78,14 @@ Rails::Initializer.run do |config|
 end
 
 require 'money'
+
+class Numeric
+  def to_dollars
+    Money.new(self)
+  end
+  
+  def to_cents
+    Money.new(self / 100.0)
+  end
+end
+

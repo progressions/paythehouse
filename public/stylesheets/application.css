@@ -133,4 +133,12 @@ p.payment_link a:hover {
 	color: white;
 }
 
-
+tr.bill {
+	color: black;
+}
+tr.assignment {
+	color: red;
+}
+tr.payment {
+	color: green;
+}
