@@ -29,6 +29,7 @@ class BillsController < ApplicationController
     end
     current_user.bills << @bill
     if @bill.save
+      UserMailer.deliver_bill_notification(@bill)
       @bill.assignments.each do |assignment|
         UserMailer.deliver_assignment_notification(assignment) unless assignment.payee = current_user
       end
