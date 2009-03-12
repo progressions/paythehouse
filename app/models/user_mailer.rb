@@ -6,6 +6,13 @@ class UserMailer < ActionMailer::Base
     @body[:url] = APP_CONFIG[:site_url]
   end
   
+  def bill_notification(bill)
+    setup_email(bill.user)
+    @subject << 'You have created a bill'
+    @body[:bill] = bill
+    @body[:url] = APP_CONFIG[:site_url]
+  end
+  
   def signup_notification(user)
     setup_email(user)
     @subject << 'Please activate your new account'

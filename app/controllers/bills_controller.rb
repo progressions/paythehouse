@@ -30,7 +30,7 @@ class BillsController < ApplicationController
     current_user.bills << @bill
     if @bill.save
       @bill.assignments.each do |assignment|
-        UserMailer.deliver_assignment_notification(assignment)
+        UserMailer.deliver_assignment_notification(assignment) unless assignment.payee = current_user
       end
       flash[:notice] = "Successfully created bill."
       redirect_to root_url
