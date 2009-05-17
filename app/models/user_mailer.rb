@@ -1,4 +1,18 @@
 class UserMailer < ActionMailer::Base
+  def payment_received_notification(payment)
+    setup_email(payment.payee)
+    @subject << 'You have received a payment'
+    @body[:payment] = payment
+    @body[:url] = APP_CONFIG[:site_url]
+  end
+  
+  def payment_made_notification(payment)
+    setup_email(payment.user)
+    @subject << 'You have made a payment'
+    @body[:payment] = payment
+    @body[:url] = APP_CONFIG[:site_url]
+  end
+  
   def assignment_notification(assignment)
     setup_email(assignment.payee)
     @subject << 'You have been assigned a bill'

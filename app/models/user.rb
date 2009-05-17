@@ -33,6 +33,14 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :name, :password, :password_confirmation, :identity_url
   
+  def name
+    if read_attribute(:name).blank?
+      read_attribute(:email)
+    else
+      read_attribute(:name)
+    end
+  end
+  
   def balance
     #payments.sum_in_dollars - debts.sum_in_dollars
     cents = payments.sum(:amount_in_cents) - debts.sum(:amount_in_cents)

@@ -20,7 +20,8 @@ class PaymentsController < ApplicationController
     @payment = Payment.new(params[:payment])
     current_user.payments << @payment
     if @payment.save
-      UserMailer.deliver_payment_notification(@payment)
+      UserMailer.deliver_payment_received_notification(@payment)
+      UserMailer.deliver_payment_made_notification(@payment)
       flash[:notice] = "Successfully created payment."
       redirect_to root_url
     else
