@@ -1,6 +1,30 @@
-Dear <%= @assignment.payee.name %>,
+<p>Dear <%= @assignment.payee.name %>,</p>
 
-You have been assigned a payment in the amount of <%= @assignment.amount %>.
+<p>You have been assigned a payment in the amount of <%= @assignment.amount %>.</p>
 
-Enjoy!
-<%= @url %>
+<div class="balances">
+<h3>Balances</h3>
+  <ul class="yours">
+  <% for user in @users %>
+    <% unless user == @assignment.payee %>
+      <% amount = @assignment.payee.net_amount_owed_to(user) -%>
+      <li>You owe <span class="user"><%= user.login %></span> <span class="amount"><%= amount %></span> 
+      
+      <% if amount > 0.to_cents %>
+        <%= link_to "Make a payment", new_payment_path(:amount => amount.cents, :payee_id => user.id) %></li>
+      <% end %>
+    <% end %>
+  <% end %>
+  </ul>
+
+  <ul class="theirs">
+  <% for user in @users %>
+    <% unless user == @assignment.payee %>
+      <li><%= user.login %> owes you <%= user.net_amount_owed_to(@assignment.payee) %></li>
+    <% end %>
+  <% end %>
+  </ul>
+</div>
+
+<p>Enjoy!</p>
+<p><%= @url %></p>

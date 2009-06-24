@@ -17,6 +17,7 @@ class UserMailer < ActionMailer::Base
     setup_email(assignment.payee)
     @subject << 'You have been assigned a bill'
     @body[:assignment] = assignment
+    @body[:users] = User.find(:all)
     @body[:url] = APP_CONFIG[:site_url]
   end
   

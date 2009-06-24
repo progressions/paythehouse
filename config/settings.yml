@@ -6,6 +6,9 @@ development: &non_production_settings
 test:
   <<: *non_production_settings
 
+cucumber:
+  <<: *non_production_settings
+  
 staging:
   site_url: http://staging.example.com
   site_name: Pay The House

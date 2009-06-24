@@ -14,7 +14,7 @@
   <% @bill.assignments.each do |assignment| %>
     <% fields_for "bill[assignment_attributes][]", assignment do |u| %>
       <li>
-        <label><%= assignment.payee.login %>:</label>
+        <%= "<label for='assignment_for_#{assignment.payee.id}'>#{assignment.payee.login}</label>" %>
         <%= u.text_field :amount, :id => "assignment_for_#{assignment.payee.id}" %>
         <%= u.hidden_field :payee_id %>
         <%= u.hidden_field :user_id %>
