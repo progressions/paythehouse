@@ -13,7 +13,7 @@
       <li>You owe <span class="user"><%= user.login %></span> <span class="amount"><%= amount %></span> 
       
       <% if amount > 0.to_cents %>
-        <%= link_to "Make a payment", new_payment_path(:amount => amount.cents, :payee_id => user.id) %></li>
+        <%= link_to "Make a payment", new_payment_url(:amount => amount.cents, :payee_id => user.id) %></li>
       <% end %>
     <% end %>
   <% end %>

@@ -36,6 +36,8 @@ Rails::Initializer.run do |config|
   # config.gem 'rspec-rails', :lib => 'spec/rails', :version => '1.1.11'
   # config.gem 'rspec', :lib => 'spec', :version => '1.1.11'
   
+  config.action_mailer.default_url_options = { :host => "paythehouse.com" }
+  
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
   # :all can be used as a placeholder for all plugins not explicitly named
