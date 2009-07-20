@@ -19,6 +19,7 @@ class UserMailer < ActionMailer::Base
     @body[:assignment] = assignment
     @body[:users] = User.find(:all)
     @body[:url] = APP_CONFIG[:site_url]
+    content_type "text/html"
   end
   
   def bill_notification(bill)
